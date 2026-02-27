@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:GeminiMauiApp.Converters">
+
+    <!-- Value converters -->
+    <converters:BytesToImageConverter   x:Key="BytesToImageConverter" />
+    <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+    <converters:ListeningColorConverter x:Key="ListeningColorConverter" />
+    <converters:InverseBoolConverter    x:Key="InverseBoolConverter" />
+    <converters:EyeIconConverter        x:Key="EyeIconConverter" />
+
+    <!-- Label -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor"  Value="{StaticResource TextPrimary}" />
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize"   Value="14" />
+    </Style>
+
+    <!-- Entry -->
+    <Style TargetType="Entry">
+        <Setter Property="TextColor"       Value="{StaticResource TextPrimary}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="HeightRequest"   Value="44" />
+    </Style>
+
+    <!-- Button -->
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor"       Value="White" />
+        <Setter Property="CornerRadius"    Value="8" />
+        <Setter Property="FontAttributes"  Value="Bold" />
+    </Style>
+
+    <!-- ContentPage -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource PageBackground}" />
+    </Style>
+
+    <!-- Shell -->
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor"       Value="{StaticResource Primary}" />
+        <Setter Property="Shell.ForegroundColor"       Value="White" />
+        <Setter Property="Shell.TitleColor"            Value="White" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource CardBackground}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="Shell.TabBarTitleColor"      Value="{StaticResource Primary}" />
+    </Style>
+
+</ResourceDictionary>

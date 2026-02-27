@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Brand -->
+    <Color x:Key="Primary">#4285F4</Color>
+    <Color x:Key="PrimaryDark">#1A56CC</Color>
+    <Color x:Key="PrimaryLight">#A8C5FA</Color>
+    <Color x:Key="Accent">#34A853</Color>
+
+    <!-- Surfaces -->
+    <Color x:Key="PageBackground">#F8F9FA</Color>
+    <Color x:Key="CardBackground">#FFFFFF</Color>
+    <Color x:Key="InputBackground">#FFFFFF</Color>
+    <Color x:Key="InputField">#F1F3F4</Color>
+
+    <!-- Chat bubbles -->
+    <Color x:Key="UserBubble">#4285F4</Color>
+    <Color x:Key="AssistantBubble">#FFFFFF</Color>
+
+    <!-- Text -->
+    <Color x:Key="TextPrimary">#202124</Color>
+    <Color x:Key="TextSecondary">#5F6368</Color>
+
+</ResourceDictionary>

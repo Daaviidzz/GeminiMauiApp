@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GeminiMauiApp.ViewModels"
+    xmlns:models="clr-namespace:GeminiMauiApp.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="GeminiMauiApp.Views.ChatPage"
+    x:DataType="vm:ChatViewModel"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Limpiar"
+            Command="{Binding ClearChatCommand}"
+            Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*, Auto" Padding="0">
+
+        <CollectionView
+            x:Name="ChatList"
+            Grid.Row="0"
+            ItemsSource="{Binding Messages}"
+            Margin="0,8,0,0"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <Grid Padding="12,4">
+
+                        <Frame
+                            IsVisible="{Binding IsUser}"
+                            HorizontalOptions="End"
+                            MaximumWidthRequest="300"
+                            BackgroundColor="{StaticResource UserBubble}"
+                            CornerRadius="18"
+                            Padding="14,10"
+                            HasShadow="False">
+                            <StackLayout Spacing="6">
+                                <Image
+                                    IsVisible="{Binding HasImage}"
+                                    Source="{Binding ImageData, Converter={StaticResource BytesToImageConverter}}"
+                                    HeightRequest="160"
+                                    Aspect="AspectFill"
+                                    WidthRequest="220" />
+                                <Label
+                                    Text="{Binding Content}"
+                                    TextColor="White"
+                                    FontSize="15"
+                                    IsVisible="{Binding Content, Converter={StaticResource StringNotEmptyConverter}}" />
+                                <Label
+                                    Text="{Binding TimeFormatted}"
+                                    TextColor="#CCFFFFFF"
+                                    FontSize="11"
+                                    HorizontalOptions="End" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            IsVisible="{Binding IsAssistant}"
+                            HorizontalOptions="Start"
+                            MaximumWidthRequest="300"
+                            BackgroundColor="{StaticResource AssistantBubble}"
+                            CornerRadius="18"
+                            Padding="14,10"
+                            HasShadow="True">
+                            <StackLayout Spacing="6">
+                                <Label
+                                    Text="Gemini ✦"
+                                    TextColor="{StaticResource Primary}"
+                                    FontSize="12"
+                                    FontAttributes="Bold" />
+                                <Label
+                                    Text="{Binding Content}"
+                                    TextColor="{StaticResource TextPrimary}"
+                                    FontSize="15"
+                                    LineBreakMode="WordWrap" />
+                                <Label
+                                    Text="{Binding TimeFormatted}"
+                                    TextColor="{StaticResource TextSecondary}"
+                                    FontSize="11"
+                                    HorizontalOptions="End" />
+                            </StackLayout>
+                        </Frame>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <ActivityIndicator
+            Grid.Row="0"
+            IsRunning="{Binding IsThinking}"
+            IsVisible="{Binding IsThinking}"
+            Color="{StaticResource Primary}"
+            VerticalOptions="End"
+            Margin="0,0,0,8" />
+
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="{StaticResource InputBackground}"
+            Padding="8,8,8,12"
+            RowDefinitions="Auto,Auto"
+            ColumnDefinitions="*, Auto, Auto, Auto">
+
+            <Frame
+                Grid.Row="0"
+                Grid.ColumnSpan="4"
+                IsVisible="{Binding HasPreviewImage}"
+                Padding="4"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                Margin="0,0,0,4">
+                <Grid ColumnDefinitions="Auto,Auto">
+                    <Image
+                        Grid.Column="0"
+                        Source="{Binding PreviewImage}"
+                        HeightRequest="70"
+                        WidthRequest="70"
+                        Aspect="AspectFill" />
+                    <Button
+                        Grid.Column="1"
+                        Text="✕"
+                        Command="{Binding ClearImageCommand}"
+                        FontSize="12"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource TextSecondary}"
+                        VerticalOptions="Start" />
+                </Grid>
+            </Frame>
+
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="{StaticResource InputField}"
+                StrokeShape="RoundRectangle 24"
+                Stroke="Transparent"
+                Padding="16,0">
+                <Entry
+                    x:Name="InputEntry"
+                    Text="{Binding UserInput}"
+                    Placeholder="Escribe un mensaje…"
+                    PlaceholderColor="{StaticResource TextSecondary}"
+                    TextColor="{StaticResource TextPrimary}"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Center"
+                    ReturnCommand="{Binding SendCommand}"
+                    ReturnType="Send" />
+            </Border>
+
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="📷"
+                Command="{Binding AttachImageCommand}"
+                BackgroundColor="Transparent"
+                FontSize="22"
+                Padding="6,0"
+                WidthRequest="44"
+                HeightRequest="44" />
+
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                BackgroundColor="{Binding IsListening, Converter={StaticResource ListeningColorConverter}}"
+                FontSize="22"
+                Text="🎤"
+                Command="{Binding ToggleListenCommand}"
+                CornerRadius="22"
+                WidthRequest="44"
+                HeightRequest="44"
+                Padding="0" />
+
+            <Button
+                Grid.Row="1"
+                Grid.Column="3"
+                Command="{Binding SendCommand}"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                Text="➤"
+                FontSize="18"
+                CornerRadius="22"
+                WidthRequest="44"
+                HeightRequest="44"
+                Padding="0"
+                IsEnabled="{Binding IsNotBusy}" />
+        </Grid>
+
+    </Grid>
+</ContentPage>

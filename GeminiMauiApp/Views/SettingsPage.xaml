@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GeminiMauiApp.ViewModels"
+    x:Class="GeminiMauiApp.Views.SettingsPage"
+    x:DataType="vm:SettingsViewModel"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="24">
+
+            <!-- Header -->
+            <StackLayout Spacing="4">
+                <Label
+                    Text="⚙ Configuración"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+                <Label
+                    Text="Personaliza tu experiencia con Gemini"
+                    FontSize="14"
+                    TextColor="{StaticResource TextSecondary}" />
+            </StackLayout>
+
+            <Frame
+                BackgroundColor="{StaticResource CardBackground}"
+                CornerRadius="16"
+                Padding="16"
+                HasShadow="True">
+                <StackLayout Spacing="12">
+                    <Label
+                        Text="🔑 API Key de Gemini"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+                    <Label
+                        Text="Obtén tu key en Google AI Studio (aistudio.google.com)"
+                        FontSize="12"
+                        TextColor="{StaticResource TextSecondary}" />
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Border
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource InputField}"
+                            StrokeShape="RoundRectangle 12"
+                            Stroke="Transparent"
+                            Padding="12,0">
+                            <Entry
+                                Text="{Binding ApiKey}"
+                                Placeholder="AIzaSy..."
+                                PlaceholderColor="{StaticResource TextSecondary}"
+                                TextColor="{StaticResource TextPrimary}"
+                                BackgroundColor="Transparent"
+                                IsPassword="{Binding IsApiKeyVisible, Converter={StaticResource InverseBoolConverter}}" />
+                        </Border>
+                        <Button
+                            Grid.Column="1"
+                            Text="{Binding IsApiKeyVisible, Converter={StaticResource EyeIconConverter}}"
+                            Command="{Binding ToggleApiKeyVisibilityCommand}"
+                            BackgroundColor="Transparent"
+                            FontSize="20"
+                            WidthRequest="44" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                BackgroundColor="{StaticResource CardBackground}"
+                CornerRadius="16"
+                Padding="16"
+                HasShadow="True">
+                <StackLayout Spacing="12">
+                    <Label
+                        Text="🤖 Modelo de IA"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+                    <Label
+                        Text="Selecciona el modelo de Gemini a utilizar"
+                        FontSize="12"
+                        TextColor="{StaticResource TextSecondary}" />
+                    <Picker
+                        Title="Seleccionar modelo"
+                        ItemsSource="{Binding AvailableModels}"
+                        SelectedItem="{Binding SelectedModel}"
+                        TextColor="{StaticResource TextPrimary}"
+                        BackgroundColor="{StaticResource InputField}" />
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                BackgroundColor="{StaticResource CardBackground}"
+                CornerRadius="16"
+                Padding="16"
+                HasShadow="True">
+                <Grid ColumnDefinitions="*, Auto">
+                    <StackLayout Grid.Column="0" Spacing="4">
+                        <Label
+                            Text="🔊 Voz automática (TTS)"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+                        <Label
+                            Text="Leer las respuestas de Gemini en voz alta"
+                            FontSize="12"
+                            TextColor="{StaticResource TextSecondary}" />
+                    </StackLayout>
+                    <Switch
+                        Grid.Column="1"
+                        IsToggled="{Binding TtsEnabled}"
+                        ThumbColor="{StaticResource Primary}"
+                        OnColor="{StaticResource PrimaryLight}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+
+            <Button
+                Text="Guardar ajustes"
+                Command="{Binding SaveCommand}"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                CornerRadius="14"
+                HeightRequest="52"
+                FontSize="16"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="GeminiMauiApp v1.0 · Powered by Google Gemini"
+                FontSize="11"
+                TextColor="{StaticResource TextSecondary}"
+                HorizontalOptions="Center"
+                Margin="0,8,0,0" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
